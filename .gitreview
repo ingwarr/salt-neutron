@@ -1,4 +1,5 @@
 [gerrit]
-host=gerrit.mcp.mirantis.net
+host=review.gerrithub.io
 port=29418
-project=salt-formulas/neutron.git
+project=ingwarr/salt-neutron
+
