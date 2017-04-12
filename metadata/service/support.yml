@@ -1,0 +1,15 @@
+parameters:
+  neutron:
+    _support:
+      collectd:
+        enabled: true
+      heka:
+        enabled: true
+      sensu:
+        enabled: true
+      sphinx:
+        enabled: true
+      config:
+        enabled: true
+      grafana:
+        enabled: true
