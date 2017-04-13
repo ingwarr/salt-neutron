@@ -1,0 +1,29 @@
+neutron:
+  underlay:
+    debug: true
+    provision_address: 10.0.175.2
+    file_url_port: 8080
+    bridge_name: brbm
+    database:
+      engine: mysql
+      host: keystone
+      port: 3306
+      name: ironic
+      user: ironic
+      password: password
+    enable_keystone: true
+    identity:
+      engine: keystone
+      region: RegionOne
+      host: keystone
+      port: 35357
+      user: ironic
+      password: password
+      tenant: service
+    message_queue:
+      engine: rabbitmq
+      host: keystone
+      port: 5672
+      user: openstack
+      password: password
+      virtual_host: '/openstack'

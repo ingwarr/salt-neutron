@@ -1,0 +1,78 @@
+{%- from "neutron/map.jinja" import server with context %}
+[DEFAULT]
+{% if underlay.debug | default(false) %}
+debug = true
+{% else %}
+debug = false
+{% endif %}
+use_stderr = false
+use_syslog = false
+
+bind_host = 0.0.0.0
+
+core_plugin = ml2
+interface_driver = neutron.agent.linux.interface.BridgeInterfaceDriver
+notify_nova_on_port_status_changes = false
+notify_nova_on_port_data_changes = false
+
+{% if underlay.enable_keystone | default(false) %}
+auth_strategy = keystone
+{% else %}
+auth_strategy = noauth
+{% endif %}
+
+lock_path = /var/lib/neutron/tmp
+
+dnsmasq_config_file = /etc/neutron/dnsmasq.conf
+
+[oslo_concurrency]
+lock_path = /var/lib/neutron/tmp
+
+[oslo_messaging_rabbit]
+rabbit_userid = {{ underlay.message_queue.user }}
+rabbit_password = {{ underlay.message_queue.password }}
+rabbit_hosts = {{ underlay.message_queue.host }}
+rabbit_virtual_host={{ underlay.message_queue.virtual_host }}
+
+
+[agent]
+root_helper = sudo /usr/local/bin/neutron-rootwrap /etc/neutron/rootwrap.conf
+root_helper_daemon = sudo /usr/local/bin/neutron-rootwrap-daemon /etc/neutron/rootwrap.conf
+
+[database]
+connection = mysql+pymysql://{{ underlay.database.user }}:{{ underlay.database.password }}@{{ underlay.database.host }}/{{ underlay.database.name }}?charset=utf8
+max_retries = -1
+
+{% if underlay.enable_keystone | default(false) %}
+[keystone_authtoken]
+auth_plugin = password
+auth_region = {{ underlay.identity.region }}
+auth_protocol=http
+revocation_cache_time = 10
+auth_url = http://{{ underlay.identity.host }}:{{ underlay.identity.port }}
+username = {{ underlay.identity.user }}
+password = {{ underlay.identity.password }}
+user_domain_id = default
+project_name = {{ underlay.identity.tenant }}
+project_domain_id = default
+{% endif %}
+
+[ml2]
+type_drivers = flat
+tenant_network_types = flat
+mechanism_drivers = linuxbridge
+
+[ml2_type_flat]
+flat_networks = baremetal
+
+[securitygroup]
+enable_security_group = false
+
+[linux_bridge]
+bridge_mappings = baremetal:{{ underlay.bridge_name }}
+
+[vxlan]
+enable_vxlan = False
+
+[quotas]
+track_quota_usage = False

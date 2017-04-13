@@ -1,4 +1,18 @@
 
+{% set underlay = salt['grains.filter_by']({
+    'Debian': {
+        'pkgs': ['neutron-dhcp-agent', 'neutron-linuxbridge-agent', 'bridge-utils', 'neutron-plugin-ml2', 'neutron-server', 'gettext-base', 'python-pycadf'],
+        'services': ['neutron-linuxbridge-agent', 'neutron-server', 'neutron-dhcp-agent'],
+        'dpdk': false
+    },
+    'RedHat': {
+        'pkgs': ['openstack-neutron', 'neutron-dhcp-agent', 'neutron-linuxbridge-agent', 'bridge-utils', 'neutron-plugin-ml2', 'gettext-base', 'python-pycadf'],
+        'services': ['neutron-linuxbridge-agent', 'neutron-server', 'neutron-dhcp-agent'],
+        'dpdk': false
+    },
+}, merge=pillar.neutron.get('underlay', {})) %}
+
+
 {% set compute = salt['grains.filter_by']({
     'Debian': {
         'pkgs': ['neutron-openvswitch-agent', 'openvswitch-switch', 'python-pycadf'],
