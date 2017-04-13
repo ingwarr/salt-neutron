@@ -4,6 +4,10 @@ neutron:
     provision_address: 10.0.175.2
     file_url_port: 8080
     bridge_name: brbm
+    inspector_range:
+      start: 10.0.175.10
+      end: 10.0.175.100
+      prefix: 24
     database:
       engine: mysql
       host: keystone
