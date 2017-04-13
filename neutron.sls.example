@@ -32,3 +32,5 @@ neutron:
       user: openstack
       password: password
       virtual_host: '/openstack'
+  client:
+    enabled: true
