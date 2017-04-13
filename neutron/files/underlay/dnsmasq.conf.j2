@@ -1,3 +1,4 @@
+{%- from "neutron/map.jinja" import underlay with context %}
 dhcp-range=tag:!known,{{ underlay.inspector_range.start }},{{ underlay.inspector_range.end }},{{ underlay.inspector_range.prefix }}
 dhcp-match=set:ipxe,175
 tag-if=set:inspect_pxe,tag:!known,tag:!ipxe
