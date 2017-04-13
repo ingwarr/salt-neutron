@@ -1,5 +1,5 @@
 {%- from "neutron/map.jinja" import underlay with context %}
-{%- if underlay.enabled' %}
+{%- if underlay.enabled %}
 
 neutron_server_packages:
   pkg.installed:
