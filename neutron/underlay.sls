@@ -21,8 +21,6 @@ neutron_server_packages:
   - require:
     - pkg: neutron_server_packages
 
-{%- if not grains.get('noservices', False) %}
-
 neutron_server_services:
   service.running:
   - names: {{ underlay.services }}
@@ -30,8 +28,5 @@ neutron_server_services:
   - watch:
     - file: /etc/neutron/neutron.conf
     - file: /etc/neutron/dnsmasq.conf
-
-{%- endif %}
-
 
 {%- endif %}

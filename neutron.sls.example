@@ -13,8 +13,8 @@ neutron:
       engine: mysql
       host: keystone
       port: 3306
-      name: ironic
-      user: ironic
+      name: neutron
+      user: neutron
       password: password
     enable_keystone: true
     identity:
@@ -22,7 +22,7 @@ neutron:
       region: RegionOne
       host: keystone
       port: 35357
-      user: ironic
+      user: neutron
       password: password
       tenant: service
     message_queue:
