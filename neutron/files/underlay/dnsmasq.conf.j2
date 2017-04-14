@@ -4,4 +4,4 @@ dhcp-match=set:ipxe,175
 tag-if=set:inspect_pxe,tag:!known,tag:!ipxe
 tag-if=set:inspect_ipxe,tag:!known,tag:ipxe
 dhcp-boot=tag:inspect_pxe,/undionly.kpxe,boothost,{{ underlay.provision_address }}
-dhcp-boot=tag:inspect_ipxe,http://{{ underlay.provision_address }}:{{ underlau.file_url_port }}/boot.ipxe
+dhcp-boot=tag:inspect_ipxe,http://{{ underlay.provision_address }}:{{ underlay.file_url_port }}/boot.ipxe
