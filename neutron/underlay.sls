@@ -32,6 +32,7 @@ neutron_db_manage:
   - name: neutron-db-manage --config-file /etc/neutron/neutron.conf  upgrade head
   - require:
     - file: /etc/neutron/neutron.conf
+    - cmd: neutron_plugins_clear
     
 neutron_server_services:
   service.running:
