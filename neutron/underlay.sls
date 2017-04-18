@@ -21,9 +21,15 @@ neutron_server_packages:
   - require:
     - pkg: neutron_server_packages
 
+neutron_plugins_clear:
+  cmd.run:
+  - name: rm -rf /etc/neutron/plugins/ml2/*
+  - require:
+    - pkg: neutron_server_packages
+
 neutron_db_manage:
   cmd.run:
-  - name: neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head
+  - name: neutron-db-manage --config-file /etc/neutron/neutron.conf  upgrade head
   - require:
     - file: /etc/neutron/neutron.conf
     
