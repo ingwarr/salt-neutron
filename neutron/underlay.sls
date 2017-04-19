@@ -27,6 +27,12 @@ neutron_plugins_clear:
   - require:
     - pkg: neutron_server_packages
 
+/lib/systemd/system/neutron-linuxbridge-agent.service:
+  file.managed:
+  - source: salt://neutron/files/underlay/neutron-linuxbridge-agent.service
+  - require:
+    - pkg: neutron_server_packages
+
 neutron_db_manage:
   cmd.run:
   - name: neutron-db-manage --config-file /etc/neutron/neutron.conf  upgrade head
@@ -42,4 +48,7 @@ neutron_server_services:
     - file: /etc/neutron/neutron.conf
     - file: /etc/neutron/dnsmasq.conf
     - cmd: neutron_db_manage
+    - file: /lib/systemd/system/neutron-linuxbridge-agent.service
+
+
 {%- endif %}
