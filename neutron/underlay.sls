@@ -47,6 +47,12 @@ neutron_bridge_creation:
   - require:
     - pkg: neutron_server_packages
 
+/etc/sudoers.d/neutron_sudoers:
+  file.managed:
+  - source: salt://neutron/files/underlay/neutron_sudoers
+  - require:
+    - pkg: neutron_server_packages
+
 neutron_server_services:
   service.running:
   - names: {{ underlay.services }}
@@ -55,6 +61,7 @@ neutron_server_services:
     - file: /etc/neutron/neutron.conf
     - file: /etc/neutron/dnsmasq.conf
     - file: /lib/systemd/system/neutron-linuxbridge-agent.service
+    - file: /etc/sudoers.d/neutron_sudoers
     - cmd: neutron_db_manage
     - cmd: neutron_bridge_creation
 
