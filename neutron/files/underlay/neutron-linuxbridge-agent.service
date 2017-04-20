@@ -1,0 +1,10 @@
+[Unit]
+Description=neutron-linuxbridge-agent service
+
+[Service]
+ExecStart=/usr/bin/neutron-linuxbridge-agent --config-file /etc/neutron/neutron.conf
+User=neutron
+
+[Install]
+WantedBy=multi-user.target
+Alias=neutron-linuxbridge-agent.service
