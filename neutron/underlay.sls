@@ -42,10 +42,10 @@ neutron_db_manage:
     - cmd: neutron_plugins_clear
 
 neutron_bridge_creation:
-  - cmd.run:
-    - name: brctl addbr {{ underlay.bridge_name }}
-    - require:
-      - pkg: neutron_server_packages
+  cmd.run:
+  - name: brctl addbr {{ underlay.bridge_name }}
+  - require:
+    - pkg: neutron_server_packages
 
 neutron_server_services:
   service.running:
