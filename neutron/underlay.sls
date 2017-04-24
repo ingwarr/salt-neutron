@@ -43,7 +43,7 @@ neutron_db_manage:
 
 neutron_bridge_creation:
   cmd.run:
-  - name: brctl addbr {{ underlay.bridge_name }}
+  - name: brctl addbr {{ underlay.bridge_name }} && brctl addif {{ underlay.bridge_name }} {{ provision_interface }} && ip addr add {{ provision_address }}/{{ provision_netmask }} dev {{ underlay.bridge_name }} && ip link set {{ provision_interface }} up
   - require:
     - pkg: neutron_server_packages
 

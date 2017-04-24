@@ -2,7 +2,9 @@ neutron:
   underlay:
     enabled: true
     debug: true
-    provision_address: 10.0.175.2
+    provision_address: 10.0.175.1
+    provision_netmask: 24
+    provision_interface: ens7
     file_url_port: 8080
     bridge_name: brbm
     inspector_range:
