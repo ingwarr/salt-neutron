@@ -23,7 +23,7 @@ neutron_server_packages:
 
 neutron_plugins_clear:
   cmd.run:
-  - name: rm -rf /etc/neutron/plugins/ml2/*
+  - name: rm -rf /etc/neutron/plugins/ml2/* && touch /etc/neutron/plugins/ml2/ml2_conf.ini
   - require:
     - pkg: neutron_server_packages
 
@@ -57,6 +57,7 @@ neutron_server_services:
   service.running:
   - names: {{ underlay.services }}
   - enable: true
+  - reload: true
   - watch:
     - file: /etc/neutron/neutron.conf
     - file: /etc/neutron/dnsmasq.conf
